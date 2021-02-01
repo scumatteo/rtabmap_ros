@@ -339,6 +339,14 @@ private:
 		cv::Mat rgb;
 		cv::Mat depth;
 		pcl::PointCloud<pcl::PointXYZ> scanCloud;
+
+		/*
+			Racchiude le info della camera:
+			- K intrinsic matrix
+			- D distortion coefficient
+			- R reprojection matrix
+			- P projection matrix
+		*/
 		std::vector<CameraModel> cameraModels;
 		for(unsigned int i=0; i<rgbImages.size(); ++i)
 		{
@@ -375,6 +383,7 @@ private:
 
 			ros::Time stamp = rgbImages[i]->header.stamp>depthImages[i]->header.stamp?rgbImages[i]->header.stamp:depthImages[i]->header.stamp;
 
+			/* Serve a settare il timestamp maggiore*/
 			if(i == 0)
 			{
 				higherStamp = stamp;
@@ -384,6 +393,7 @@ private:
 				higherStamp = stamp;
 			}
 
+			// Transform definisce vettore traslazione e quaternione
 			Transform localTransform = getTransform(this->frameId(), rgbImages[i]->header.frame_id, stamp);
 			if(localTransform.isNull())
 			{
@@ -419,6 +429,7 @@ private:
 
 			if(ptrImage->image.type() == rgb.type())
 			{
+				//Rect è la regione di interesse
 				ptrImage->image.copyTo(cv::Mat(rgb, cv::Rect(i*imageWidth, 0, imageWidth, imageHeight)));
 			}
 			else
@@ -437,6 +448,7 @@ private:
 				return;
 			}
 
+			//Crea il modello della camera
 			cameraModels.push_back(rtabmap_ros::cameraModelFromROS(cameraInfos[i], localTransform));
 		}
 
@@ -447,6 +459,7 @@ private:
 				0,
 				rtabmap_ros::timestampFromROS(higherStamp));
 
+		//Richiama la funzione per processare i dati di OdometryROS.cpp
 		this->processData(data, higherStamp, rgbImages.size()==1?rgbImages[0]->header.frame_id:"");
 	}
 
