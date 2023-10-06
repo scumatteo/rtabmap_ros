@@ -13,10 +13,10 @@
     roslaunch rtabmap_examples usyd_dataset.launch cameras:=true
     -->
 
-    <arg name="rtabmap_viz"    default="true"/>
+    <arg name="rtabmap_viz"    default="false"/>
     <arg name="deskewing"      default="true"/>
     
-    <arg name="cameras"        default="false"/>
+    <arg name="cameras"        default="true"/>
 
     <arg name="resolution"     default="0.5"/>
     <arg name="local_map_size" default="10000"/>
@@ -75,15 +75,21 @@
         <remap from="rgb/image_rect" to="image_rect_color"/>
         <remap from="rgb/camera_info" to="camera_info"/>
       </node>
-      <node if="$(arg cameras)" pkg="rtabmap_sync" type="rgb_sync" name="rgb_sync_1" output="screen" ns="/gmsl/A2">
+      <node if="$(arg cameras)" pkg="rtabmap_sync" type="rgb_sync" name="rgb_sync_1" output="screen" ns="/gmsl/A0">
+        <param name="approx_sync" value="true"/>
+        <remap from="rgb/image_rect" to="image_rect_color"/>
+        <remap from="rgb/camera_info" to="camera_info"/>
+      </node>
+      <node if="$(arg cameras)" pkg="rtabmap_sync" type="rgb_sync" name="rgb_sync_2" output="screen" ns="/gmsl/A2">
         <param name="approx_sync" value="true"/>
         <remap from="rgb/image_rect" to="image_rect_color"/>
         <remap from="rgb/camera_info" to="camera_info"/>
       </node>
       <node if="$(arg cameras)" pkg="rtabmap_sync" type="rgbdx_sync" name="rgbdx_sync" output="screen">
-        <param name="rgbd_cameras" value="2"/>
+        <param name="rgbd_cameras" value="3"/>
         <remap from="rgbd_image0" to="/gmsl/A1/rgbd_image"/>
-        <remap from="rgbd_image1" to="/gmsl/A2/rgbd_image"/>
+        <remap from="rgbd_image1" to="/gmsl/A0/rgbd_image"/>
+        <remap from="rgbd_image2" to="/gmsl/A2/rgbd_image"/>
       </node>
 
       <!-- Lidar Odometry -->
@@ -145,6 +151,8 @@
         <!-- RTAB-Map's parameters -->
         <param name="Rtabmap/DetectionRate"          type="string" value="1"/>
         <param name="Rtabmap/LoopGPS"                type="string" value="false"/> <!-- GPS can be quite wrong in that dataset-->
+        <param name="Rtabmap/CreateIntermediateNodes" type="string" value="true"/> 
+        <param name="Mem/IntermediateNodeDataKept"   type="string" value="true"/>
         <param name="RGBD/NeighborLinkRefining"      type="string" value="false"/>
         <param name="RGBD/ProximityBySpace"          type="string" value="true"/>
         <param name="RGBD/ProximityMaxGraphDepth"    type="string" value="0"/>
@@ -155,7 +163,7 @@
         <param name="Mem/NotLinkedNodesKept"         type="string" value="false"/>
         <param name="Mem/STMSize"                    type="string" value="30"/>
         <param name="Mem/ImagePreDecimation"         type="string" value="2"/> <!-- Scale down image 2x -->
-        <param name="Mem/ImagePostDecimation"       type="string" value="2"/>
+        <param name="Mem/ImagePostDecimtation"       type="string" value="2"/>
         <param name="Reg/Strategy"                   type="string" value="1"/>
         <param name="Optimizer/GravitySigma"         type="string" value="3"/>
 
@@ -185,6 +193,16 @@
       </node>
 
       <node if="$(arg rtabmap_viz)" name="rtabmap_viz" pkg="rtabmap_viz" type="rtabmap_viz">
+        <param name="frame_id"             type="string" value="base_footprint"/>
+        <param name="odom_frame_id" type="string" value="lidar_odom"/>
+        <param name="subscribe_odom_info"  type="bool" value="true"/>
+        <param name="subscribe_scan_cloud" type="bool" value="true"/>
+        <param name="approx_sync"          type="bool" value="false"/>
+        <remap from="scan_cloud" to="odom_filtered_input_scan"/>
+        <remap from="odom_info"  to="odom_info"/>
+      </node>
+
+      <node unless="$(arg rtabmap_viz)" name="rviz" pkg="rviz" type="rviz">
         <param name="frame_id"             type="string" value="base_footprint"/>
         <param name="odom_frame_id" type="string" value="lidar_odom"/>
         <param name="subscribe_odom_info"  type="bool" value="true"/>
