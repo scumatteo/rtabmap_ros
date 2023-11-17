@@ -17,7 +17,7 @@
     <arg name="rviz"           default="false"/>
     <arg name="deskewing"      default="true"/>
     
-    <arg name="cameras"        default="false"/>
+    <arg name="cameras"        default="true"/>
 
     <arg name="resolution"     default="0.5"/>
     <arg name="local_map_size" default="10000"/>

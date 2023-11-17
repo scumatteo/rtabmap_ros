@@ -8,6 +8,8 @@
         Example:
            $ roslaunch rtabmap_ros bumblebee.launch -->
 
+  <param name="use_sim_time" type="bool" value="true"/>
+
   <!-- Choose visualization -->
   <arg name="rtabmapviz"              default="false" />
   <arg name="rviz"                    default="true" />
@@ -23,7 +25,10 @@
   <arg name="database_path"           default="~/.ros/rtabmap.db"/>
   <arg name="rtabmap_args"            default="-d 
                                               --Rtabmap/CreateIntermediateNodes true
-                                              --Rtabmap/DetectionRate 1"/>   <!-- delete_db_on_start, udebug -->
+                                              --Rtabmap/DetectionRate 1
+                                              --Mem/IntermediateNodeDataKept true
+                                              --RGBD/NeighborLinkRefining true"/>   <!-- delete_db_on_start, udebug -->
+                                              
   <arg name="launch_prefix"           default=""/>
   <arg name="approx_sync"             default="true"/>         <!-- if timestamps of the input topics are not synchronized -->
 
