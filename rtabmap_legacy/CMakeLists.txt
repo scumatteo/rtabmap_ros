@@ -11,6 +11,8 @@ catkin_package(
   CATKIN_DEPENDS dynamic_reconfigure image_transport rtabmap_conversions rtabmap_msgs rtabmap_util
 )
 
+find_package(nlohmann_json REQUIRED)
+
 ###########
 ## Build ##
 ###########
@@ -35,15 +37,16 @@ add_library(rtabmap_legacy_plugins
 )
 target_link_libraries(rtabmap_legacy_plugins
   ${catkin_LIBRARIES}
+  nlohmann_json::nlohmann_json
 )
 
 add_executable(rtabmap_camera src/CameraNode.cpp)
 add_dependencies(rtabmap_camera ${${PROJECT_NAME}_EXPORTED_TARGETS})
-target_link_libraries(rtabmap_camera ${catkin_LIBRARIES})
+target_link_libraries(rtabmap_camera ${catkin_LIBRARIES} nlohmann_json::nlohmann_json)
 set_target_properties(rtabmap_camera PROPERTIES OUTPUT_NAME "camera")
 
 add_executable(rtabmap_stereo_camera src/StereoCameraNode.cpp)
-target_link_libraries(rtabmap_stereo_camera ${catkin_LIBRARIES})
+target_link_libraries(rtabmap_stereo_camera ${catkin_LIBRARIES} nlohmann_json::nlohmann_json)
 set_target_properties(rtabmap_stereo_camera PROPERTIES OUTPUT_NAME "stereo_camera")
 
 #############

@@ -25,8 +25,7 @@
     
     <arg name="database_path"  default="/data/rtabmap.db"/>
 
-    <arg name="rtabmap_args" default="--udebug --logfile /data/log.txt"/>
-    <!-- <arg unless="$(arg append)" name="rtabmap_args" default="-d"/> delete previous db -->
+    <arg name="rtabmap_args" default="-d --udebug --logfile /data/log.txt"/>
 
     <!-- Regenerate lidar point clouds with timestamps -->
     <node pkg="nodelet" type="nodelet" name="velodyne_transform" args="standalone velodyne_pointcloud/TransformNodelet" ns="velodyne/front">
@@ -153,6 +152,8 @@
         <param name="Rtabmap/CreateIntermediateNodes" type="string" value="true"/> 
         <!-- <param name="Rtabmap/StartNewMapOnLoopClosure" type="string" value="true"/>  -->
         <param name="Mem/IntermediateNodeDataKept"   type="string" value="true"/>
+        <param name="Rtabmap/CreateIntermediateNodes" type="string" value="true"/> 
+        <param name="Mem/IntermediateNodeDataKept"   type="string" value="true"/>
         <param name="RGBD/NeighborLinkRefining"      type="string" value="false"/>
         <param name="RGBD/ProximityBySpace"          type="string" value="true"/>
         <param name="RGBD/ProximityMaxGraphDepth"    type="string" value="0"/>
@@ -162,9 +163,8 @@
         <param name="RGBD/LocalRadius"               type="string" value="30"/>
         <param name="RGBD/OptimizeMaxError"          type="string" value="0"/>
         <param name="Mem/NotLinkedNodesKept"         type="string" value="false"/>
-        <!-- <param name="Rtabmap/TimeThr"                type="string" value="800"/> -->
-        <!-- <param name="Mem/InitWMWithAllNodes"         type="string" value="true"/>
-        <param name="Mem/IncrementalMemory"          type="string" value="true"/> -->
+        <param name="Rtabmap/TimeThr"                type="string" value="700"/>
+        <param name="Mem/InitWMWithAllNodes"         type="string" value="true"/>
         <param name="Mem/STMSize"                    type="string" value="30"/>
         <param name="Mem/ImagePreDecimation"         type="string" value="2"/> <!-- Scale down image 2x -->
         <param name="Mem/ImagePostDecimtation"       type="string" value="2"/>
@@ -195,6 +195,8 @@
         <param name="Icp/MaxTranslation"             type="string" value="10"/>
         <param name="Icp/MaxCorrespondenceDistance"  type="string" value="3"/>
         <param name="Icp/OutlierRatio"               type="string" value="0.7"/>
+
+        <param name="Continual/ExperienceSize"       type="string" value="30"/>
       </node>
 
       <node if="$(arg rtabmap_viz)" name="rtabmap_viz" pkg="rtabmap_viz" type="rtabmap_viz">
