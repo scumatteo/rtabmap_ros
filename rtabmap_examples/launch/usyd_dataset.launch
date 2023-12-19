@@ -13,7 +13,7 @@
     roslaunch rtabmap_examples usyd_dataset.launch cameras:=true
     -->
 
-    <arg name="rtabmap_viz"    default="false"/>
+    <arg name="rtabmap_viz"    default="true"/>
     <arg name="rviz"           default="false"/>
     <arg name="deskewing"      default="true"/>
     
@@ -23,14 +23,10 @@
     <arg name="local_map_size" default="10000"/>
     <arg name="key_frame_thr"  default="0.5"/>
     
-    <arg name="database_path"  default="~/.ros/rtabmap.db"/>
+    <arg name="database_path"  default="/data/rtabmap.db"/>
 
-    <arg name="append"         default="false"/> <!-- true: don't delete previous db, create new session -->
-    <arg name="intermediate"   default="false"/> <!-- true: create intermediate nodes -->
-    <arg name="initWM"         default="false"/>
-
-    <arg     if="$(arg append)" name="rtabmap_args" default=""/>
-    <arg unless="$(arg append)" name="rtabmap_args" default="-d"/> <!-- delete previous db -->
+    <arg name="rtabmap_args" default="--udebug --logfile /data/log.txt"/>
+    <!-- <arg unless="$(arg append)" name="rtabmap_args" default="-d"/> delete previous db -->
 
     <!-- Regenerate lidar point clouds with timestamps -->
     <node pkg="nodelet" type="nodelet" name="velodyne_transform" args="standalone velodyne_pointcloud/TransformNodelet" ns="velodyne/front">
@@ -154,8 +150,9 @@
         <!-- RTAB-Map's parameters -->
         <param name="Rtabmap/DetectionRate"          type="string" value="1"/>
         <param name="Rtabmap/LoopGPS"                type="string" value="false"/> <!-- GPS can be quite wrong in that dataset-->
-        <param name="Rtabmap/CreateIntermediateNodes" type="string" value="$(arg intermediate)"/> 
-        <param name="Mem/IntermediateNodeDataKept"   type="string" value="$(arg intermediate)"/>
+        <param name="Rtabmap/CreateIntermediateNodes" type="string" value="true"/> 
+        <!-- <param name="Rtabmap/StartNewMapOnLoopClosure" type="string" value="true"/>  -->
+        <param name="Mem/IntermediateNodeDataKept"   type="string" value="true"/>
         <param name="RGBD/NeighborLinkRefining"      type="string" value="false"/>
         <param name="RGBD/ProximityBySpace"          type="string" value="true"/>
         <param name="RGBD/ProximityMaxGraphDepth"    type="string" value="0"/>
@@ -163,8 +160,11 @@
         <param name="RGBD/ProximityMergedScanCovFactor" type="string" value="10"/>
         <param name="RGBD/LinearUpdate"              type="string" value="0.2"/>
         <param name="RGBD/LocalRadius"               type="string" value="30"/>
+        <param name="RGBD/OptimizeMaxError"          type="string" value="0"/>
         <param name="Mem/NotLinkedNodesKept"         type="string" value="false"/>
-        <param name="Mem/InitWMWithAllNodes"         type="string" value="$(arg initWM)"/>
+        <!-- <param name="Rtabmap/TimeThr"                type="string" value="800"/> -->
+        <!-- <param name="Mem/InitWMWithAllNodes"         type="string" value="true"/>
+        <param name="Mem/IncrementalMemory"          type="string" value="true"/> -->
         <param name="Mem/STMSize"                    type="string" value="30"/>
         <param name="Mem/ImagePreDecimation"         type="string" value="2"/> <!-- Scale down image 2x -->
         <param name="Mem/ImagePostDecimtation"       type="string" value="2"/>
