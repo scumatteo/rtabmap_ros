@@ -8,6 +8,7 @@ find_package(catkin REQUIRED COMPONENTS
 )
 
 find_package(RTABMap 0.21.0 REQUIRED)
+find_package(nlohmann_json REQUIRED)
 
 catkin_package(
   INCLUDE_DIRS include
@@ -49,6 +50,7 @@ add_library(rtabmap_conversions
 
 target_link_libraries(rtabmap_conversions
   ${Libraries}
+  nlohmann_json::nlohmann_json
 )
 
 add_dependencies(rtabmap_conversions 

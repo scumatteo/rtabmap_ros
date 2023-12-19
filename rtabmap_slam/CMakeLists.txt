@@ -13,6 +13,7 @@ find_package(catkin REQUIRED COMPONENTS
 # Optional components
 find_package(apriltag_ros)
 find_package(fiducial_msgs)
+find_package(nlohmann_json REQUIRED)
 
 IF(WIN32)
 add_compile_options(-bigobj)
@@ -95,10 +96,11 @@ add_library(rtabmap_slam_plugins
 
 target_link_libraries(rtabmap_slam_plugins
   ${Libraries}
+  nlohmann_json::nlohmann_json
 )
 
 add_executable(rtabmap_node src/CoreNode.cpp)
-target_link_libraries(rtabmap_node ${Libraries})
+target_link_libraries(rtabmap_node ${Libraries} nlohmann_json::nlohmann_json)
 set_target_properties(rtabmap_node PROPERTIES OUTPUT_NAME "rtabmap")
 
 #############
