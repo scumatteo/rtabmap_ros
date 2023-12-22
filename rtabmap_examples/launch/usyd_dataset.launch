@@ -163,7 +163,7 @@
         <param name="RGBD/LocalRadius"               type="string" value="30"/>
         <param name="RGBD/OptimizeMaxError"          type="string" value="0"/>
         <param name="Mem/NotLinkedNodesKept"         type="string" value="false"/>
-        <param name="Rtabmap/TimeThr"                type="string" value="700"/>
+        <!-- <param name="Rtabmap/TimeThr"                type="string" value="700"/> -->
         <param name="Mem/InitWMWithAllNodes"         type="string" value="true"/>
         <param name="Mem/STMSize"                    type="string" value="30"/>
         <param name="Mem/ImagePreDecimation"         type="string" value="2"/> <!-- Scale down image 2x -->
