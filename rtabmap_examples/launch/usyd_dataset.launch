@@ -23,9 +23,9 @@
     <arg name="local_map_size" default="10000"/>
     <arg name="key_frame_thr"  default="0.5"/>
     
-    <arg name="database_path"  default="/data/rtabmap.db"/>
+    <arg name="database_path"  default="/wsl/rtabmap.db"/>
 
-    <arg name="rtabmap_args" default="-d --udebug --logfile /data/log.txt"/>
+    <arg name="rtabmap_args" default="-d --udebug --logfile /wsl/log.txt"/>
 
     <!-- Regenerate lidar point clouds with timestamps -->
     <node pkg="nodelet" type="nodelet" name="velodyne_transform" args="standalone velodyne_pointcloud/TransformNodelet" ns="velodyne/front">
