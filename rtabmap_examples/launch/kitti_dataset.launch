@@ -11,8 +11,8 @@
   <param name="use_sim_time" type="bool" value="true"/>
 
   <!-- Choose visualization -->
-  <arg name="rtabmapviz"              default="false" />
-  <arg name="rviz"                    default="true" />
+  <arg name="rtabmapviz"              default="true" />
+  <arg name="rviz"                    default="false" />
 
   <!-- Localization-only mode -->
   <arg name="localization"            default="false"/>
@@ -22,12 +22,19 @@
   <arg name="rviz_cfg"                default="$(find rtabmap_launch)/launch/config/rgbd.rviz" />
 
   <arg name="frame_id"                default="base_link"/>     <!-- Fixed frame id, you may set "base_link" or "base_footprint" if they are published -->
-  <arg name="database_path"           default="~/.ros/rtabmap.db"/>
-  <arg name="rtabmap_args"            default="-d 
+  <arg name="database_path"           default="/wsl/rtabmap_kitti.db"/>
+  <arg name="rtabmap_args"            default="-d
+                                              --udebug --logfile /wsl/log.txt 
                                               --Rtabmap/CreateIntermediateNodes true
                                               --Rtabmap/DetectionRate 1
+                                              --Mem/NotLinkedNodesKept false
                                               --Mem/IntermediateNodeDataKept true
-                                              --RGBD/NeighborLinkRefining true"/>   <!-- delete_db_on_start, udebug -->
+                                              --RGBD/NeighborLinkRefining true
+                                              --Region/DesiredAverageCardinality 600
+                                              --Region/MeshShapeFactor 1
+                                              --Region/RadiusUpperBound 100
+                                              --Region/TopK 3
+                                              --Continual/ExperienceSize 100"/>   <!-- delete_db_on_start, udebug -->
                                               
   <arg name="launch_prefix"           default=""/>
   <arg name="approx_sync"             default="true"/>         <!-- if timestamps of the input topics are not synchronized -->

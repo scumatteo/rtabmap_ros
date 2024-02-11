@@ -119,8 +119,19 @@
         <param name="OdomF2M/ScanMaxSize"        type="string" value="$(arg local_map_size)"/>
       </node>
 
+      <!-- <node pkg="rtabmap_odom" type="rgbd_odometry" name="rgbd_odometry" output="screen">
+        <param name="subscribe_rgbd" type="string" value="true"/>
+        <param name="rgbd_cameras" type="string" value="3"/>
+
+        <param name="guess_frame_id"  type="string" value="odom"/>
+        <param name="frame_id" type="string" value="base_footprint"/>
+        <param name="queue_size" type="int" value="10"/>
+        <param name="wait_for_transform" type="bool" value="true"/>
+      </node> -->
+
       <!-- SLAM -->
-      <node pkg="rtabmap_slam" type="rtabmap" name="rtabmap" output="screen" args="$(arg rtabmap_args)">
+       <!-- launch-prefix="xterm -e gdb -ex run -\-args" -->
+      <node pkg="rtabmap_slam" type="rtabmap" name="rtabmap" output="screen" launch-prefix="xterm -e gdb -ex run --args" args="$(arg rtabmap_args)">
         <param name="database_path"        type="string" value="$(arg database_path)"/>
         <param name="frame_id"             type="string" value="base_footprint"/>
         <param name="odom_frame_id" type="string" value=""/>
@@ -149,11 +160,9 @@
         <!-- RTAB-Map's parameters -->
         <param name="Rtabmap/DetectionRate"          type="string" value="1"/>
         <param name="Rtabmap/LoopGPS"                type="string" value="false"/> <!-- GPS can be quite wrong in that dataset-->
-        <param name="Rtabmap/CreateIntermediateNodes" type="string" value="true"/> 
+        <!-- <param name="Rtabmap/CreateIntermediateNodes" type="string" value="true"/>  -->
         <!-- <param name="Rtabmap/StartNewMapOnLoopClosure" type="string" value="true"/>  -->
-        <param name="Mem/IntermediateNodeDataKept"   type="string" value="true"/>
-        <param name="Rtabmap/CreateIntermediateNodes" type="string" value="true"/> 
-        <param name="Mem/IntermediateNodeDataKept"   type="string" value="true"/>
+        <!-- <param name="Mem/IntermediateNodeDataKept"   type="string" value="true"/> -->
         <param name="RGBD/NeighborLinkRefining"      type="string" value="false"/>
         <param name="RGBD/ProximityBySpace"          type="string" value="true"/>
         <param name="RGBD/ProximityMaxGraphDepth"    type="string" value="0"/>
@@ -165,9 +174,10 @@
         <param name="Mem/NotLinkedNodesKept"         type="string" value="false"/>
         <!-- <param name="Rtabmap/TimeThr"                type="string" value="700"/> -->
         <param name="Mem/InitWMWithAllNodes"         type="string" value="true"/>
+        <!-- <param name="Mem/IncrementalMemory"         type="string" value="true"/> -->
         <param name="Mem/STMSize"                    type="string" value="30"/>
         <param name="Mem/ImagePreDecimation"         type="string" value="2"/> <!-- Scale down image 2x -->
-        <param name="Mem/ImagePostDecimtation"       type="string" value="2"/>
+        <param name="Mem/ImagePostDecimation"        type="string" value="2"/>
         <param name="Reg/Strategy"                   type="string" value="1"/>
         <param name="Optimizer/GravitySigma"         type="string" value="3"/>
 
@@ -196,7 +206,13 @@
         <param name="Icp/MaxCorrespondenceDistance"  type="string" value="3"/>
         <param name="Icp/OutlierRatio"               type="string" value="0.7"/>
 
-        <param name="Continual/ExperienceSize"       type="string" value="30"/>
+        <!-- <param name="Region/DesiredAverageCardinality" type="string" value="600"/>
+        <param name="Region/MeshShapeFactor"         type="string" value="1"/>
+        <param name="Region/RadiusUpperBound"        type="string" value="100"/>
+        <param name="Region/TopK"                    type="string" value="5"/>
+
+        <param name="Continual/ExperienceSize"       type="string" value="100"/> -->
+        
       </node>
 
       <node if="$(arg rtabmap_viz)" name="rtabmap_viz" pkg="rtabmap_viz" type="rtabmap_viz">
@@ -219,5 +235,5 @@
       </node>
   </group>
   <node pkg="tf2_ros" type="static_transform_publisher" name="base_footprint_to_map"  args="0 0 0 0 0 0 base_footprint map" />
-
+  <node pkg="tf2_ros" type="static_transform_publisher" name="base_footprint_to_imu_link"  args="0 0 0 0 0 0 base_footprint imu_link" />
 </launch>

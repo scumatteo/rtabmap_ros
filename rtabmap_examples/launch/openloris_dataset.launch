@@ -1,10 +1,28 @@
 <launch>
+  <param name="use_sim_time" type="bool" value="true"/>
+
+  <!-- Choose visualization -->
+  <arg name="rtabmapviz"              default="true" />
+  <arg name="rviz"                    default="false" />
+
+  <!-- Localization-only mode -->
+  <arg name="localization"            default="false"/>
+
+  <!-- Corresponding config files -->
+  <arg name="rtabmapviz_cfg"          default="~/.ros/rtabmap_gui.ini" />
+  <arg name="rviz_cfg"                default="$(find rtabmap_launch)/launch/config/rgbd.rviz" />
+
+  <arg name="frame_id"                default="base_link"/>     <!-- Fixed frame id, you may set "base_link" or "base_footprint" if they are published -->
+  <arg name="database_path"           default="/wsl/openloris_office.db"/>
 
   <include file="$(find rtabmap_ros)/launch/rtabmap.launch">
-    <arg name="rtabmapviz"                  value="false" /> 
-    <arg name="rviz"                        value="true" />
+    <arg name="rtabmap_viz"                 value="$(arg rtabmapviz)" />
+    <arg name="rviz"                        value="$(arg rviz)" />
+    <arg name="localization"                value="$(arg localization)"/>
+    <arg name="gui_cfg"                     value="$(arg rtabmapviz_cfg)" />
+    <arg name="rviz_cfg"                    value="$(arg rviz_cfg)" />
+    <arg name="database_path"               value="$(arg database_path)"/>
     <arg name="queue_size"                  value="10" />
-    <arg name="use_sim_time"                value="true"/>
     <arg name="frame_id"                    value="base_link"/>
     <!-- <arg name="subscribe_scan"              value="true"/>
     <arg name="scan_topic"                  value="/scan"/>
@@ -15,13 +33,23 @@
     <arg name="camera_info_topic"           value="/color/camera_info"/>
     <arg name="depth_camera_info_topic"     value="/aligned_depth_to_color/camera_info"/>
     <arg name="visual_odometry"             value="true"/>
-    <arg name="args"                        value="-d 
-                                                    --Reg/Strategy 0
-                                                    --Rtabmap/DetectionRate 1
-                                                    --Rtabmap/CreateIntermediateNodes true
-                                                    --Mem/IntermediateNodeDataKept true
-                                                    --RGBD/NeighborLinkRefining false
-                                                    --Mem/NotLinkedNodesKept false"/>
+    <arg name="args"                        value="--udebug --logfile /wsl/log.txt 
+                                                  --Reg/Strategy 0
+                                                  --Rtabmap/LoopThr 0.05
+                                                  --Mem/InitWMWithAllNodes true
+                                                  --Rtabmap/CreateIntermediateNodes false
+                                                  --Rtabmap/DetectionRate 1
+                                                  --Mem/NotLinkedNodesKept false
+                                                  --Mem/IntermediateNodeDataKept true
+                                                  --RGBD/NeighborLinkRefining true
+                                                  --Kp/DetectorStrategy 2
+                                                  --Vis/FeatureType 2"
+                                                  />
+                                                  <!-- -\-Region/DesiredAverageCardinality 100
+                                                  -\-Region/MeshShapeFactor 1
+                                                  -\-Region/RadiusUpperBound 15
+                                                  -\-Region/TopK 3
+                                                  -\-Continual/ExperienceSize 100" -->
                                             
 
   </include>

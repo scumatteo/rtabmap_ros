@@ -1758,6 +1758,15 @@ void CoreWrapper::process(
 	UTimer timer;
 	if(rtabmap_.isIDsGenerated() || data.id() > 0)
 	{
+		// std::cout << data.imageRaw().rows << " " << data.imageRaw().cols << "\n";
+		// std::cout << data.depthRaw().rows << " " << data.depthRaw().cols << "\n";
+		// cv::Rect myROI(1920, 0, 1920, 1208);
+		// cv::Mat cropped_rgb = data.imageRaw()(myROI);
+		// cv::Mat cropped_depth = data.depthRaw()(myROI);
+
+		// cv::imwrite("/wsl/saved_images/rgb/" + std::to_string(data.id()) + ".png", cropped_rgb);
+		// cv::imwrite("/wsl/saved_images/depth/" + std::to_string(data.id()) + ".png", cropped_depth);
+
 		// Add intermediate nodes?
 		for(std::list<std::pair<nav_msgs::Odometry, rtabmap_msgs::OdomInfo> >::iterator iter=interOdoms_.begin(); iter!=interOdoms_.end();)
 		{
