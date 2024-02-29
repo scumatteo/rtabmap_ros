@@ -5,8 +5,6 @@ find_package(catkin REQUIRED COMPONENTS
              roscpp rtabmap_conversions message_filters
 )
 
-find_package(nlohmann_json REQUIRED)
-
 catkin_package(
   CATKIN_DEPENDS roscpp rtabmap_conversions message_filters
 )
@@ -20,7 +18,7 @@ include_directories(
 )
 
 add_executable(rtabmap_external_loop_detection_example src/ExternalLoopDetectionExample.cpp)
-target_link_libraries(rtabmap_external_loop_detection_example ${catkin_LIBRARIES} nlohmann_json::nlohmann_json)
+target_link_libraries(rtabmap_external_loop_detection_example ${catkin_LIBRARIES})
 set_target_properties(rtabmap_external_loop_detection_example PROPERTIES OUTPUT_NAME "external_loop_detection_example")
 
 #############

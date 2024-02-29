@@ -12,8 +12,6 @@ ENDIF(NOT Qt5_FOUND)
 find_package(catkin REQUIRED COMPONENTS
              roscpp sensor_msgs std_msgs pcl_conversions pluginlib rviz tf rtabmap_conversions rtabmap_msgs)
 
-find_package(nlohmann_json REQUIRED)
-
 catkin_package(
   INCLUDE_DIRS include
   LIBRARIES rtabmap_rviz_plugins
@@ -103,7 +101,6 @@ add_library(rtabmap_rviz_plugins
 )
 target_link_libraries(rtabmap_rviz_plugins
   ${Libraries}
-  nlohmann_json::nlohmann_json
 )
 IF(Qt5_FOUND)
     QT5_USE_MODULES(rtabmap_rviz_plugins Widgets Core Gui)

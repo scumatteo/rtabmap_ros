@@ -2,20 +2,21 @@
   <param name="use_sim_time" type="bool" value="true"/>
 
   <!-- Choose visualization -->
-  <arg name="rtabmapviz"              default="true" />
-  <arg name="rviz"                    default="false" />
+  <arg name="rtabmapviz"              default="false" />
+  <arg name="rviz"                    default="true" />
 
   <!-- Localization-only mode -->
   <arg name="localization"            default="false"/>
 
   <!-- Corresponding config files -->
-  <arg name="rtabmapviz_cfg"          default="~/.ros/rtabmap_gui.ini" />
+  <arg name="rtabmapviz_cfg"          default="~/.ros/rtabmap_GUI.ini" />
   <arg name="rviz_cfg"                default="$(find rtabmap_launch)/launch/config/rgbd.rviz" />
 
   <arg name="frame_id"                default="base_link"/>     <!-- Fixed frame id, you may set "base_link" or "base_footprint" if they are published -->
-  <arg name="database_path"           default="/wsl/openloris_office.db"/>
+  <arg name="database_path"           default="/wsl/rtabmap_openloris.db"/>
 
   <include file="$(find rtabmap_ros)/launch/rtabmap.launch">
+    <!-- <arg name="launch_prefix"               value="xterm -e gdb -ex run -\-args"/> -->
     <arg name="rtabmap_viz"                 value="$(arg rtabmapviz)" />
     <arg name="rviz"                        value="$(arg rviz)" />
     <arg name="localization"                value="$(arg localization)"/>
@@ -33,18 +34,25 @@
     <arg name="camera_info_topic"           value="/color/camera_info"/>
     <arg name="depth_camera_info_topic"     value="/aligned_depth_to_color/camera_info"/>
     <arg name="visual_odometry"             value="true"/>
-    <arg name="args"                        value="--udebug --logfile /wsl/log.txt 
+    <arg name="args"                        value="--udebug --logfile /wsl/log_openloris.txt 
                                                   --Reg/Strategy 0
-                                                  --Rtabmap/LoopThr 0.05
+                                                  --Rtabmap/LoopThr 0.7
                                                   --Mem/InitWMWithAllNodes true
-                                                  --Rtabmap/CreateIntermediateNodes false
+                                                  --Rtabmap/CreateIntermediateNodes true
                                                   --Rtabmap/DetectionRate 1
+                                                  --Optimizer/Strategy 2      
                                                   --Mem/NotLinkedNodesKept false
-                                                  --Mem/IntermediateNodeDataKept true
+                                                  --Mem/IntermediateNodeDataKept false
                                                   --RGBD/NeighborLinkRefining true
-                                                  --Kp/DetectorStrategy 2
-                                                  --Vis/FeatureType 2"
-                                                  />
+                                                  --Continual/ModelPath /wsl/resnet18_places365.pt
+                                                  --Continual/CheckpointPath /wsl/checkpoint_openloris.pt
+                                                  --Continual/Device 0
+                                                  --Continual/ExperienceSize 500
+                                                  --Continual/ReplayMemorySize 1000
+                                                  --Continual/ReplayMemory 1
+                                                  --Continual/WeightingMethod 2
+                                                  --Continual/LossFunction 1"/>
+
                                                   <!-- -\-Region/DesiredAverageCardinality 100
                                                   -\-Region/MeshShapeFactor 1
                                                   -\-Region/RadiusUpperBound 15

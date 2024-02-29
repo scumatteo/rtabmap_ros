@@ -5,6 +5,8 @@ Panels:
     Property Tree Widget:
       Expanded:
         - /Global Options1
+        - /Status1
+        - /Grid1
         - /TF1/Frames1
         - /Image1
         - /Info1
@@ -29,7 +31,7 @@ Panels:
     Experimental: false
     Name: Time
     SyncMode: 0
-    SyncSource: Info
+    SyncSource: Image
 Preferences:
   PromptSaveOnExit: true
 Toolbars:
@@ -53,7 +55,7 @@ Visualization Manager:
         Z: 0
       Plane: XY
       Plane Cell Count: 10
-      Reference Frame: map
+      Reference Frame: base_link
       Value: true
     - Alpha: 1
       Autocompute Intensity Bounds: true
@@ -92,15 +94,11 @@ Visualization Manager:
         All Enabled: false
         base_link:
           Value: true
-        camera_color_left:
+        base_odom:
           Value: true
-        camera_left:
+        d400_color:
           Value: true
-        map:
-          Value: true
-        odom:
-          Value: true
-        world:
+        laser:
           Value: true
       Marker Scale: 1
       Name: TF
@@ -108,19 +106,18 @@ Visualization Manager:
       Show Axes: true
       Show Names: true
       Tree:
-        map:
-          odom:
-            base_link:
-              camera_color_left:
-                {}
-        world:
-          camera_left:
+        base_link:
+          base_odom:
+            {}
+          d400_color:
+            {}
+          laser:
             {}
       Update Interval: 0
       Value: true
     - Class: rviz/Image
       Enabled: true
-      Image Topic: /kitti/camera_color_left/image_rect
+      Image Topic: /color/image_raw
       Max Value: 1
       Median window: 5
       Min Value: 0
@@ -259,7 +256,7 @@ Visualization Manager:
   Global Options:
     Background Color: 48; 48; 48
     Default Light: true
-    Fixed Frame: map
+    Fixed Frame: base_link
     Frame Rate: 30
   Name: root
   Tools:

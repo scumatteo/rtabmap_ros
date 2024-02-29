@@ -5,8 +5,6 @@ find_package(catkin REQUIRED COMPONENTS
              cv_bridge geometry_msgs std_msgs std_srvs nav_msgs rtabmap_msgs rtabmap_sync tf
 )
 
-find_package(nlohmann_json REQUIRED)
-
 ###################################
 ## catkin specific configuration ##
 ###################################
@@ -39,7 +37,7 @@ add_executable(rtabmap_viz src/GuiNode.cpp src/GuiWrapper.cpp src/PreferencesDia
 IF(Qt5_FOUND)
     QT5_USE_MODULES(rtabmap_viz Widgets Core Gui)
 ENDIF(Qt5_FOUND)
-target_link_libraries(rtabmap_viz ${catkin_LIBRARIES} nlohmann_json::nlohmann_json)
+target_link_libraries(rtabmap_viz ${catkin_LIBRARIES})
 
 
 #############

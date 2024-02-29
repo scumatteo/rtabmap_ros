@@ -6,8 +6,6 @@ find_package(catkin REQUIRED COMPONENTS
             nodelet message_filters rtabmap_msgs rtabmap_conversions diagnostic_updater
 )
 
-find_package(nlohmann_json REQUIRED)
-
 option(RTABMAP_SYNC_MULTI_RGBD "Build with multi RGBD camera synchronization support"  OFF)
 option(RTABMAP_SYNC_USER_DATA "Build with input user data support"  OFF)
 MESSAGE(STATUS "RTABMAP_SYNC_MULTI_RGBD = ${RTABMAP_SYNC_MULTI_RGBD}")
@@ -91,27 +89,25 @@ add_library(rtabmap_sync_plugins
 
 target_link_libraries(rtabmap_sync
   ${catkin_LIBRARIES}
-  nlohmann_json::nlohmann_json
 )
 target_link_libraries(rtabmap_sync_plugins
   ${catkin_LIBRARIES}
-  nlohmann_json::nlohmann_json
 )
 
 add_executable(rtabmap_rgbd_sync src/RGBDSyncNode.cpp)
-target_link_libraries(rtabmap_rgbd_sync ${catkin_LIBRARIES} nlohmann_json::nlohmann_json)
+target_link_libraries(rtabmap_rgbd_sync ${catkin_LIBRARIES})
 set_target_properties(rtabmap_rgbd_sync PROPERTIES OUTPUT_NAME "rgbd_sync")
 
 add_executable(rtabmap_rgbdx_sync src/RGBDXSyncNode.cpp)
-target_link_libraries(rtabmap_rgbdx_sync ${catkin_LIBRARIES} nlohmann_json::nlohmann_json)
+target_link_libraries(rtabmap_rgbdx_sync ${catkin_LIBRARIES})
 set_target_properties(rtabmap_rgbdx_sync PROPERTIES OUTPUT_NAME "rgbdx_sync")
 
 add_executable(rtabmap_stereo_sync src/StereoSyncNode.cpp)
-target_link_libraries(rtabmap_stereo_sync ${catkin_LIBRARIES} nlohmann_json::nlohmann_json)
+target_link_libraries(rtabmap_stereo_sync ${catkin_LIBRARIES})
 set_target_properties(rtabmap_stereo_sync PROPERTIES OUTPUT_NAME "stereo_sync")
 
 add_executable(rtabmap_rgb_sync src/RGBSyncNode.cpp)
-target_link_libraries(rtabmap_rgb_sync ${catkin_LIBRARIES} nlohmann_json::nlohmann_json)
+target_link_libraries(rtabmap_rgb_sync ${catkin_LIBRARIES})
 set_target_properties(rtabmap_rgb_sync PROPERTIES OUTPUT_NAME "rgb_sync")
 
 #############

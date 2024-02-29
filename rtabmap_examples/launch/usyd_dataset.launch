@@ -160,9 +160,9 @@
         <!-- RTAB-Map's parameters -->
         <param name="Rtabmap/DetectionRate"          type="string" value="1"/>
         <param name="Rtabmap/LoopGPS"                type="string" value="false"/> <!-- GPS can be quite wrong in that dataset-->
-        <!-- <param name="Rtabmap/CreateIntermediateNodes" type="string" value="true"/>  -->
+        <param name="Rtabmap/CreateIntermediateNodes" type="string" value="true"/> 
         <!-- <param name="Rtabmap/StartNewMapOnLoopClosure" type="string" value="true"/>  -->
-        <!-- <param name="Mem/IntermediateNodeDataKept"   type="string" value="true"/> -->
+        <param name="Mem/IntermediateNodeDataKept"   type="string" value="false"/>
         <param name="RGBD/NeighborLinkRefining"      type="string" value="false"/>
         <param name="RGBD/ProximityBySpace"          type="string" value="true"/>
         <param name="RGBD/ProximityMaxGraphDepth"    type="string" value="0"/>
@@ -177,7 +177,7 @@
         <!-- <param name="Mem/IncrementalMemory"         type="string" value="true"/> -->
         <param name="Mem/STMSize"                    type="string" value="30"/>
         <param name="Mem/ImagePreDecimation"         type="string" value="2"/> <!-- Scale down image 2x -->
-        <param name="Mem/ImagePostDecimation"        type="string" value="2"/>
+        <param name="Mem/ImagePostDecimation"        type="string" value="0"/>
         <param name="Reg/Strategy"                   type="string" value="1"/>
         <param name="Optimizer/GravitySigma"         type="string" value="3"/>
 
@@ -206,12 +206,23 @@
         <param name="Icp/MaxCorrespondenceDistance"  type="string" value="3"/>
         <param name="Icp/OutlierRatio"               type="string" value="0.7"/>
 
-        <!-- <param name="Region/DesiredAverageCardinality" type="string" value="600"/>
+        <param name="Region/DesiredAverageCardinality" type="string" value="1000"/>
         <param name="Region/MeshShapeFactor"         type="string" value="1"/>
         <param name="Region/RadiusUpperBound"        type="string" value="100"/>
-        <param name="Region/TopK"                    type="string" value="5"/>
+        <param name="Region/TopK"                    type="string" value="3"/>
 
-        <param name="Continual/ExperienceSize"       type="string" value="100"/> -->
+        <param name="Continual/ModelPath"            type="string" value="/wsl/resnet18_places365.pt"/>
+        <param name="Continual/CheckpointPath"       type="string" value="/wsl/checkpoint.pt"/>
+        <param name="Continual/Device"               type="string" value="0"/>
+        <param name="Continual/ExperienceSize"       type="string" value="500"/>
+        <param name="Continual/ReplayMemorySize"     type="string" value="1000"/>
+        <param name="Continual/ReplayMemory"         type="string" value="1"/>
+        <param name="Continual/WeightingMethod"      type="string" value="2"/>
+        <param name="Continual/LossFunction"         type="string" value="1"/>
+        <param name="Continual/RoiX"                 type="string" value="1920"/>
+        <param name="Continual/RoiY"                 type="string" value="0"/>
+        <param name="Continual/RoiWidth"             type="string" value="1920"/>
+        <param name="Continual/RoiHeight"            type="string" value="1080"/>
         
       </node>
 
@@ -224,7 +235,7 @@
         <remap from="scan_cloud" to="odom_filtered_input_scan"/>
         <remap from="odom_info"  to="odom_info"/>
       </node>
-      <node if="$(arg rviz)" name="rviz" pkg="rviz" type="rviz">
+      <node if="$(arg rviz)" name="rviz" pkg="rviz" type="rviz" args="-d $(find rtabmap_examples)/launch/config/usyd_dataset.rviz">
         <param name="frame_id"             type="string" value="base_footprint"/>
         <param name="odom_frame_id" type="string" value="lidar_odom"/>
         <param name="subscribe_odom_info"  type="bool" value="true"/>

@@ -17,8 +17,6 @@ catkin_package(
              rtabmap_sync
 )
 
-find_package(nlohmann_json REQUIRED)
-
 ###########
 ## Build ##
 ###########
@@ -52,28 +50,26 @@ add_library(rtabmap_odom_plugins
 
 target_link_libraries(rtabmap_odom
   ${catkin_LIBRARIES}
-  nlohmann_json::nlohmann_json
 )
 target_link_libraries(rtabmap_odom_plugins
   rtabmap_odom
   ${catkin_LIBRARIES}
-  nlohmann_json::nlohmann_json
 )
 
 add_executable(rtabmap_rgbd_odometry src/RGBDOdometryNode.cpp)
-target_link_libraries(rtabmap_rgbd_odometry rtabmap_odom_plugins nlohmann_json::nlohmann_json)
+target_link_libraries(rtabmap_rgbd_odometry rtabmap_odom_plugins)
 set_target_properties(rtabmap_rgbd_odometry PROPERTIES OUTPUT_NAME "rgbd_odometry")
 
 add_executable(rtabmap_stereo_odometry src/StereoOdometryNode.cpp)
-target_link_libraries(rtabmap_stereo_odometry rtabmap_odom_plugins nlohmann_json::nlohmann_json)
+target_link_libraries(rtabmap_stereo_odometry rtabmap_odom_plugins)
 set_target_properties(rtabmap_stereo_odometry PROPERTIES OUTPUT_NAME "stereo_odometry")
 
 add_executable(rtabmap_rgbdicp_odometry src/RGBDICPOdometryNode.cpp)
-target_link_libraries(rtabmap_rgbdicp_odometry rtabmap_odom_plugins nlohmann_json::nlohmann_json)
+target_link_libraries(rtabmap_rgbdicp_odometry rtabmap_odom_plugins)
 set_target_properties(rtabmap_rgbdicp_odometry PROPERTIES OUTPUT_NAME "rgbdicp_odometry")
 
 add_executable(rtabmap_icp_odometry src/ICPOdometryNode.cpp)
-target_link_libraries(rtabmap_icp_odometry rtabmap_odom_plugins nlohmann_json::nlohmann_json)
+target_link_libraries(rtabmap_icp_odometry rtabmap_odom_plugins)
 set_target_properties(rtabmap_icp_odometry PROPERTIES OUTPUT_NAME "icp_odometry")
 
 #############
