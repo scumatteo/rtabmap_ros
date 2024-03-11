@@ -15,8 +15,8 @@
 
     
 
-    <arg name="rtabmap_viz"    default="true"/>
-    <arg name="rviz"           default="false"/>
+    <arg name="rtabmap_viz"    default="false"/>
+    <arg name="rviz"           default="true"/>
     
     <arg name="database_path"  default="/wsl/rtabmap_openloris.db"/>
 
@@ -88,11 +88,11 @@
         <param name="Mem/DepthAsMask"                type="string" value="false"/> <!-- use whole images for keypoints -->
         <param name="Mem/StereoFromMotion"           type="string" value="true"/> <!-- will estimate 3D position of keypoints outside depth image based on odometry -->
 
-        <param name="Region/DesiredAverageCardinality" type="string" value="1000"/>
+        <!-- <param name="Region/DesiredAverageCardinality" type="string" value="1000"/>
         <param name="Region/MeshShapeFactor"         type="string" value="1"/>
         <param name="Region/RadiusUpperBound"        type="string" value="100"/>
-        <param name="Region/TopK"                    type="string" value="3"/>
 
+        <param name="Continual/TopK"                 type="string" value="3"/>
         <param name="Continual/ModelPath"            type="string" value="/wsl/resnet18_places365.pt"/>
         <param name="Continual/CheckpointPath"       type="string" value="/wsl/checkpoint_openloris.pt"/>
         <param name="Continual/Device"               type="string" value="0"/>
@@ -100,7 +100,7 @@
         <param name="Continual/ReplayMemorySize"     type="string" value="1000"/>
         <param name="Continual/ReplayMemory"         type="string" value="1"/>
         <param name="Continual/WeightingMethod"      type="string" value="2"/>
-        <param name="Continual/LossFunction"         type="string" value="1"/>
+        <param name="Continual/LossFunction"         type="string" value="1"/> -->
         
       </node>
 

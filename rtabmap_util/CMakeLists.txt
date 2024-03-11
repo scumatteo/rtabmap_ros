@@ -23,6 +23,10 @@ catkin_package(
              pluginlib rtabmap_msgs rtabmap_conversions ${optional_dependencies}
 )
 
+SET(Libraries
+   ${catkin_LIBRARIES}
+)
+
 ###########
 ## Build ##
 ###########
@@ -72,51 +76,51 @@ add_library(rtabmap_util_plugins
    ${rtabmap_util_plugins_lib_src}
 )
 target_link_libraries(rtabmap_util_plugins
-  ${catkin_LIBRARIES}
+  ${Libraries}
 )
 
 add_executable(rtabmap_rgbd_relay src/RGBDRelayNode.cpp)
-target_link_libraries(rtabmap_rgbd_relay ${catkin_LIBRARIES})
+target_link_libraries(rtabmap_rgbd_relay ${Libraries})
 set_target_properties(rtabmap_rgbd_relay PROPERTIES OUTPUT_NAME "rgbd_relay")
 
 add_executable(rtabmap_rgbd_split src/RGBDSplitNode.cpp)
-target_link_libraries(rtabmap_rgbd_split ${catkin_LIBRARIES})
+target_link_libraries(rtabmap_rgbd_split ${Libraries} )
 set_target_properties(rtabmap_rgbd_split PROPERTIES OUTPUT_NAME "rgbd_split")
 
 add_executable(rtabmap_map_optimizer src/MapOptimizerNode.cpp)
-target_link_libraries(rtabmap_map_optimizer ${catkin_LIBRARIES})
+target_link_libraries(rtabmap_map_optimizer ${Libraries} )
 set_target_properties(rtabmap_map_optimizer PROPERTIES OUTPUT_NAME "map_optimizer")
 
 add_executable(rtabmap_map_assembler src/MapAssemblerNode.cpp)
-target_link_libraries(rtabmap_map_assembler rtabmap_util_plugins ${catkin_LIBRARIES})
+target_link_libraries(rtabmap_map_assembler rtabmap_util_plugins ${Libraries} )
 set_target_properties(rtabmap_map_assembler PROPERTIES OUTPUT_NAME "map_assembler")
 
 add_executable(rtabmap_imu_to_tf src/ImuToTFNode.cpp)
-target_link_libraries(rtabmap_imu_to_tf ${catkin_LIBRARIES})
+target_link_libraries(rtabmap_imu_to_tf ${Libraries} )
 set_target_properties(rtabmap_imu_to_tf PROPERTIES OUTPUT_NAME "imu_to_tf")
 
 add_executable(rtabmap_lidar_deskewing src/LidarDeskewingNode.cpp)
-target_link_libraries(rtabmap_lidar_deskewing ${catkin_LIBRARIES})
+target_link_libraries(rtabmap_lidar_deskewing ${Libraries} )
 set_target_properties(rtabmap_lidar_deskewing PROPERTIES OUTPUT_NAME "lidar_deskewing")
 
 add_executable(rtabmap_data_player src/DbPlayerNode.cpp)
-target_link_libraries(rtabmap_data_player ${catkin_LIBRARIES})
+target_link_libraries(rtabmap_data_player ${Libraries})
 set_target_properties(rtabmap_data_player PROPERTIES OUTPUT_NAME "data_player")
 
 add_executable(rtabmap_odom_msg_to_tf src/OdomMsgToTFNode.cpp)
-target_link_libraries(rtabmap_odom_msg_to_tf ${catkin_LIBRARIES})
+target_link_libraries(rtabmap_odom_msg_to_tf ${Libraries})
 set_target_properties(rtabmap_odom_msg_to_tf PROPERTIES OUTPUT_NAME "odom_msg_to_tf")
 
 add_executable(rtabmap_pointcloud_to_depthimage src/PointCloudToDepthImageNode.cpp)
-target_link_libraries(rtabmap_pointcloud_to_depthimage ${catkin_LIBRARIES})
+target_link_libraries(rtabmap_pointcloud_to_depthimage ${Libraries})
 set_target_properties(rtabmap_pointcloud_to_depthimage PROPERTIES OUTPUT_NAME "pointcloud_to_depthimage")
 
 add_executable(rtabmap_point_cloud_aggregator src/PointCloudAggregatorNode.cpp)
-target_link_libraries(rtabmap_point_cloud_aggregator ${catkin_LIBRARIES})
+target_link_libraries(rtabmap_point_cloud_aggregator ${Libraries})
 set_target_properties(rtabmap_point_cloud_aggregator PROPERTIES OUTPUT_NAME "rtabmap_point_cloud_aggregator")
 
 add_executable(rtabmap_point_cloud_assembler src/PointCloudAssemblerNode.cpp)
-target_link_libraries(rtabmap_point_cloud_assembler ${catkin_LIBRARIES})
+target_link_libraries(rtabmap_point_cloud_assembler ${Libraries})
 set_target_properties(rtabmap_point_cloud_assembler PROPERTIES OUTPUT_NAME "point_cloud_assembler")
 
 #############

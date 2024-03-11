@@ -23,9 +23,9 @@
     <arg name="local_map_size" default="10000"/>
     <arg name="key_frame_thr"  default="0.5"/>
     
-    <arg name="database_path"  default="/wsl/rtabmap.db"/>
+    <arg name="database_path"  default="/wsl/rtabmap_usyd.db"/>
 
-    <arg name="rtabmap_args" default="-d --udebug --logfile /wsl/log.txt"/>
+    <arg name="rtabmap_args" default="-d --udebug --logfile /wsl/usyd_log.txt"/>
 
     <!-- Regenerate lidar point clouds with timestamps -->
     <node pkg="nodelet" type="nodelet" name="velodyne_transform" args="standalone velodyne_pointcloud/TransformNodelet" ns="velodyne/front">
@@ -131,7 +131,7 @@
 
       <!-- SLAM -->
        <!-- launch-prefix="xterm -e gdb -ex run -\-args" -->
-      <node pkg="rtabmap_slam" type="rtabmap" name="rtabmap" output="screen" launch-prefix="xterm -e gdb -ex run --args" args="$(arg rtabmap_args)">
+      <node pkg="rtabmap_slam" type="rtabmap" name="rtabmap" output="screen" args="$(arg rtabmap_args)">
         <param name="database_path"        type="string" value="$(arg database_path)"/>
         <param name="frame_id"             type="string" value="base_footprint"/>
         <param name="odom_frame_id" type="string" value=""/>
@@ -212,10 +212,12 @@
         <param name="Region/TopK"                    type="string" value="3"/>
 
         <param name="Continual/ModelPath"            type="string" value="/wsl/resnet18_places365.pt"/>
-        <param name="Continual/CheckpointPath"       type="string" value="/wsl/checkpoint.pt"/>
+        <param name="Continual/CheckpointPath"       type="string" value="/wsl/checkpoint_usyd.pt"/>
         <param name="Continual/Device"               type="string" value="0"/>
         <param name="Continual/ExperienceSize"       type="string" value="500"/>
         <param name="Continual/ReplayMemorySize"     type="string" value="1000"/>
+        <param name="Continual/BatchSize"            type="string" value="64"/>
+        <param name="Continual/ReplayMemoryBatchSize" type="string" value="128"/>
         <param name="Continual/ReplayMemory"         type="string" value="1"/>
         <param name="Continual/WeightingMethod"      type="string" value="2"/>
         <param name="Continual/LossFunction"         type="string" value="1"/>
@@ -226,14 +228,16 @@
         
       </node>
 
-      <node if="$(arg rtabmap_viz)" name="rtabmap_viz" pkg="rtabmap_viz" type="rtabmap_viz">
+      <node if="$(arg rtabmap_viz)" name="rtabmap_viz" pkg="rtabmap_viz" type="rtabmap_viz"  args="-d ~/.ros/rtabmap_GUI.ini">
         <param name="frame_id"             type="string" value="base_footprint"/>
         <param name="odom_frame_id" type="string" value="lidar_odom"/>
         <param name="subscribe_odom_info"  type="bool" value="true"/>
         <param name="subscribe_scan_cloud" type="bool" value="true"/>
         <param name="approx_sync"          type="bool" value="false"/>
+        <!-- <param name="gui_cfg"              type="string" value= /> -->
         <remap from="scan_cloud" to="odom_filtered_input_scan"/>
         <remap from="odom_info"  to="odom_info"/>
+
       </node>
       <node if="$(arg rviz)" name="rviz" pkg="rviz" type="rviz" args="-d $(find rtabmap_examples)/launch/config/usyd_dataset.rviz">
         <param name="frame_id"             type="string" value="base_footprint"/>

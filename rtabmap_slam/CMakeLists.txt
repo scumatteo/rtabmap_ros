@@ -10,6 +10,7 @@ find_package(catkin REQUIRED COMPONENTS
              rtabmap_msgs rtabmap_util rtabmap_sync
 )
 
+
 # Optional components
 find_package(apriltag_ros)
 find_package(fiducial_msgs)

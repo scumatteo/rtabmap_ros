@@ -55,7 +55,7 @@ Visualization Manager:
         Z: 0
       Plane: XY
       Plane Cell Count: 10
-      Reference Frame: base_link
+      Reference Frame: map
       Value: true
     - Alpha: 1
       Autocompute Intensity Bounds: true
@@ -94,11 +94,13 @@ Visualization Manager:
         All Enabled: false
         base_link:
           Value: true
-        base_odom:
-          Value: true
         d400_color:
           Value: true
         laser:
+          Value: true
+        map:
+          Value: true
+        odom:
           Value: true
       Marker Scale: 1
       Name: TF
@@ -106,13 +108,13 @@ Visualization Manager:
       Show Axes: true
       Show Names: true
       Tree:
-        base_link:
-          base_odom:
-            {}
-          d400_color:
-            {}
-          laser:
-            {}
+        map:
+          odom:
+            base_link:
+              d400_color:
+                {}
+              laser:
+                {}
       Update Interval: 0
       Value: true
     - Class: rviz/Image
@@ -256,7 +258,7 @@ Visualization Manager:
   Global Options:
     Background Color: 48; 48; 48
     Default Light: true
-    Fixed Frame: base_link
+    Fixed Frame: map
     Frame Rate: 30
   Name: root
   Tools:
@@ -276,25 +278,25 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 661.9288330078125
+      Distance: 166.09878540039062
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: 1.5063560009002686
-        Y: 0.07346078753471375
-        Z: 0.07875720411539078
+        X: 22.066621780395508
+        Y: -41.74360275268555
+        Z: 0.5282681584358215
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.18979747593402863
-      Target Frame: base_link
+      Pitch: 0.025203082710504532
+      Target Frame: map
       Value: Orbit (rviz)
-      Yaw: 1.148181676864624
+      Yaw: 2.3481860160827637
     Saved: ~
 Window Geometry:
   Displays:

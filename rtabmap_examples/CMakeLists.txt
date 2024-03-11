@@ -9,6 +9,10 @@ catkin_package(
   CATKIN_DEPENDS roscpp rtabmap_conversions message_filters
 )
 
+SET(Libraries
+   ${catkin_LIBRARIES}
+)
+
 ###########
 ## Build ##
 ###########
@@ -18,7 +22,7 @@ include_directories(
 )
 
 add_executable(rtabmap_external_loop_detection_example src/ExternalLoopDetectionExample.cpp)
-target_link_libraries(rtabmap_external_loop_detection_example ${catkin_LIBRARIES})
+target_link_libraries(rtabmap_external_loop_detection_example ${Libraries})
 set_target_properties(rtabmap_external_loop_detection_example PROPERTIES OUTPUT_NAME "external_loop_detection_example")
 
 #############

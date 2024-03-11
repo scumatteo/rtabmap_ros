@@ -8,7 +8,6 @@ find_package(catkin REQUIRED COMPONENTS
 )
 
 find_package(RTABMap 0.21.0 REQUIRED)
-find_package(Torch REQUIRED)
 catkin_package(
   INCLUDE_DIRS include
   LIBRARIES rtabmap_conversions
@@ -17,6 +16,8 @@ catkin_package(
              image_geometry rtabmap_msgs
   DEPENDS RTABMap
 )
+
+find_package(Torch)
 
 ###########
 ## Build ##
@@ -35,6 +36,18 @@ SET(Libraries
    rtabmap::rtabmap
    ${catkin_LIBRARIES}
 )
+
+IF(Torch_FOUND)
+MESSAGE(STATUS "WITH Torch")
+include_directories(
+   ${TORCH_INCLUDE_DIRS}
+)
+SET(Libraries
+  ${TORCH_LIBRARIES}
+  ${Libraries}
+)
+ADD_DEFINITIONS("-DWITH_TORCH")
+ENDIF(Torch_FOUND)
 
 SET(rtabmap_conversions_lib_src
    src/MsgConversion.cpp
