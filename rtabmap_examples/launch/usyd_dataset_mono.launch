@@ -73,22 +73,16 @@
         <remap from="rgb/image_rect" to="image_rect_color"/>
         <remap from="rgb/camera_info" to="camera_info"/>
       </node>
-      <node if="$(arg cameras)" pkg="rtabmap_sync" type="rgb_sync" name="rgb_sync_1" output="screen" ns="/gmsl/A1">
+      <!-- <node if="$(arg cameras)" pkg="rtabmap_sync" type="rgb_sync" name="rgb_sync_1" output="screen" ns="/gmsl/A2">
         <param name="approx_sync" value="true"/>
         <remap from="rgb/image_rect" to="image_rect_color"/>
         <remap from="rgb/camera_info" to="camera_info"/>
       </node>
-      <node if="$(arg cameras)" pkg="rtabmap_sync" type="rgb_sync" name="rgb_sync_2" output="screen" ns="/gmsl/A2">
-        <param name="approx_sync" value="true"/>
-        <remap from="rgb/image_rect" to="image_rect_color"/>
-        <remap from="rgb/camera_info" to="camera_info"/>
-      </node>
-      <node if="$(arg cameras)" pkg="rtabmap_sync" type="rgbdx_sync" name="rgbdx_sync" output="screen">
-        <param name="rgbd_cameras" value="3"/>
-        <remap from="rgbd_image0" to="/gmsl/A1/rgbd_image"/>
-        <remap from="rgbd_image1" to="/gmsl/A0/rgbd_image"/>
-        <remap from="rgbd_image2" to="/gmsl/A2/rgbd_image"/>
-      </node>
+      <node if="$(arg cameras)" pkg="rtabmap_sync" type="rgbd_sync" name="rgbdx_sync" output="screen">
+        <param name="rgbd_cameras" value="2"/>
+        <remap from="rgbd_image0" to="/gmsl/A0/rgbd_image"/>
+        <remap from="rgbd_image1" to="/gmsl/A2/rgbd_image"/>
+      </node> -->
 
       <!-- Lidar Odometry -->
       <node pkg="rtabmap_odom" type="icp_odometry" name="icp_odometry" output="screen">
@@ -132,6 +126,7 @@
       <!-- SLAM -->
        <!-- launch-prefix="xterm -e gdb -ex run -\-args" -->
       <node pkg="rtabmap_slam" type="rtabmap" name="rtabmap" output="screen" args="$(arg rtabmap_args)">
+        
         <param name="database_path"        type="string" value="$(arg database_path)"/>
         <param name="frame_id"             type="string" value="base_footprint"/>
         <param name="odom_frame_id" type="string" value=""/>
@@ -146,23 +141,24 @@
         <param name="ground_truth_base_frame_id" type="string" value="vn100_imu_link"/>
         
         <param if="$(arg cameras)" name="subscribe_rgbd" type="bool" value="true"/>
-        <param if="$(arg cameras)" name="rgbd_cameras" type="int" value="0"/>
+        <param if="$(arg cameras)" name="rgbd_cameras" type="int" value="1"/>
         <param if="$(arg cameras)" name="gen_depth" type="bool" value="true"/>
-        <param if="$(arg cameras)" name="gen_depth_decimation" type="int" value="8"/>
-        <param if="$(arg cameras)" name="gen_depth_fill_holes_size" type="int" value="10"/>
+        <param if="$(arg cameras)" name="gen_depth_decimation" type="int" value="2"/>
+        <param if="$(arg cameras)" name="gen_depth_fill_holes_size" type="int" value="40"/>
         <param if="$(arg cameras)" name="gen_depth_fill_holes_error" type="double" value="100"/>
         <param if="$(arg cameras)" name="gen_depth_fill_iterations" type="int" value="2"/>
 
         <remap from="scan_cloud" to="$(arg scan_topic_deskewed)"/>
         <remap from="gps/fix" to="/ublox_gps/fix"/>
         <remap from="imu" to="/vn100/imu/filtered"/>
+        <remap from="rgbd_image" to="/gmsl/A0/rgbd_image"/>
 
         <!-- RTAB-Map's parameters -->
         <param name="Rtabmap/DetectionRate"          type="string" value="1"/>
         <param name="Rtabmap/LoopGPS"                type="string" value="false"/> <!-- GPS can be quite wrong in that dataset-->
         <param name="Rtabmap/CreateIntermediateNodes" type="string" value="true"/> 
         <param name="Rtabmap/StartNewMapOnLoopClosure" type="string" value="true"/> 
-        <param name="Mem/IntermediateNodeDataKept"   type="string" value="false"/>
+        <param name="Mem/IntermediateNodeDataKept"   type="string" value="true"/>
         <param name="RGBD/NeighborLinkRefining"      type="string" value="false"/>
         <param name="RGBD/ProximityBySpace"          type="string" value="true"/>
         <param name="RGBD/ProximityMaxGraphDepth"    type="string" value="0"/>
@@ -177,7 +173,7 @@
         <!-- <param name="Mem/IncrementalMemory"         type="string" value="true"/> -->
         <param name="Mem/STMSize"                    type="string" value="30"/>
         <param name="Mem/ImagePreDecimation"         type="string" value="2"/> <!-- Scale down image 2x -->
-        <param name="Mem/ImagePostDecimation"        type="string" value="0"/>
+        <param name="Mem/ImagePostDecimation"        type="string" value="2"/>
         <param name="Reg/Strategy"                   type="string" value="1"/>
         <param name="Optimizer/GravitySigma"         type="string" value="3"/>
 
@@ -191,10 +187,10 @@
         <param name="Grid/GroundIsObstacle"          type="string" value="false"/>
 
         <!-- Use SURF features to make it easier to find loop closures between datasets -->
-        <param name="Kp/DetectorStrategy"            type="string" value="0"/>
+        <param name="Kp/DetectorStrategy"            type="string" value="2"/>
         <param name="Kp/MaxFeatures"                 type="string" value="400"/> <!-- For bag-of-words -->
         <param name="Vis/MaxFeatures"                type="string" value="600"/> <!-- For visual transform estimation -->
-        <param name="Vis/FeatureType"                type="string" value="0"/>
+        <param name="Vis/FeatureType"                type="string" value="2"/>
         <param name="Mem/DepthAsMask"                type="string" value="false"/> <!-- use whole images for keypoints -->
         <param name="Mem/StereoFromMotion"           type="string" value="true"/> <!-- will estimate 3D position of keypoints outside depth image based on odometry -->
 
@@ -209,7 +205,7 @@
         <param name="Region/DesiredAverageCardinality" type="string" value="1000"/>
         <param name="Region/MeshShapeFactor"         type="string" value="1"/>
         <param name="Region/RadiusUpperBound"        type="string" value="100"/>
-
+        
         <param name="Continual/TopK"                 type="string" value="3"/>
         <param name="Continual/ModelPath"            type="string" value="/wsl/resnet18_places365.pt"/>
         <param name="Continual/CheckpointPath"       type="string" value="/wsl/checkpoint_usyd.pt"/>
@@ -221,10 +217,10 @@
         <param name="Continual/ReplayMemory"         type="string" value="1"/>
         <param name="Continual/WeightingMethod"      type="string" value="2"/>
         <param name="Continual/LossFunction"         type="string" value="1"/>
-        <param name="Continual/RoiX"                 type="string" value="1920"/>
+        <param name="Continual/RoiX"                 type="string" value="0"/>
         <param name="Continual/RoiY"                 type="string" value="0"/>
-        <param name="Continual/RoiWidth"             type="string" value="1920"/>
-        <param name="Continual/RoiHeight"            type="string" value="1080"/>
+        <param name="Continual/RoiWidth"             type="string" value="0"/>
+        <param name="Continual/RoiHeight"            type="string" value="0"/>
         
       </node>
 

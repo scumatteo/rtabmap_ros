@@ -17,8 +17,6 @@ catkin_package(
   DEPENDS RTABMap
 )
 
-find_package(Torch)
-
 ###########
 ## Build ##
 ###########
@@ -36,18 +34,6 @@ SET(Libraries
    rtabmap::rtabmap
    ${catkin_LIBRARIES}
 )
-
-IF(Torch_FOUND)
-MESSAGE(STATUS "WITH Torch")
-include_directories(
-   ${TORCH_INCLUDE_DIRS}
-)
-SET(Libraries
-  ${TORCH_LIBRARIES}
-  ${Libraries}
-)
-ADD_DEFINITIONS("-DWITH_TORCH")
-ENDIF(Torch_FOUND)
 
 SET(rtabmap_conversions_lib_src
    src/MsgConversion.cpp
