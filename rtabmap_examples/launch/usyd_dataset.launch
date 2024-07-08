@@ -177,7 +177,7 @@
         <!-- <param name="Mem/IncrementalMemory"         type="string" value="true"/> -->
         <param name="Mem/STMSize"                    type="string" value="30"/>
         <param name="Mem/ImagePreDecimation"         type="string" value="2"/> <!-- Scale down image 2x -->
-        <param name="Mem/ImagePostDecimation"        type="string" value="0"/>
+        <param name="Mem/ImagePostDecimation"        type="string" value="2"/>
         <param name="Reg/Strategy"                   type="string" value="1"/>
         <param name="Optimizer/GravitySigma"         type="string" value="3"/>
 

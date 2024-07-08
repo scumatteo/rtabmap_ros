@@ -43,21 +43,21 @@
                                                   --Mem/NotLinkedNodesKept false
                                                   --Mem/IntermediateNodeDataKept false
                                                   --RGBD/NeighborLinkRefining true
-                                                  --Region/DesiredAverageCardinality 100
-                                                  --Region/MeshShapeFactor 1
-                                                  --Region/RadiusUpperBound 15
-                                                  --Continual/TopK 3
-                                                  --Continual/ModelPath /wsl/resnet18_places365.pt
-                                                  --Continual/CheckpointPath /wsl/checkpoint_openloris.pt
-                                                  --Continual/Device 0
-                                                  --Continual/Epochs 4
-                                                  --Continual/ExperienceSize 500
-                                                  --Continual/ReplayMemorySize 500
-                                                  --Continual/ReplayMemory 1
-                                                  --Continual/BatchSize 64
-                                                  --Continual/ReplayMemoryBatchSize 128
-                                                  --Continual/WeightingMethod 2
-                                                  --Continual/LossFunction 1"  />
+                                                  -\-Region/DesiredAverageCardinality 100
+                                                  -\-Region/MeshShapeFactor 1
+                                                  -\-Region/RadiusUpperBound 15
+                                                  -\-Continual/TopK 3
+                                                  -\-Continual/ModelPath /wsl/resnet18_places365.pt
+                                                  -\-Continual/CheckpointPath /wsl/checkpoint_openloris.pt
+                                                  -\-Continual/Device 0
+                                                  -\-Continual/Epochs 4
+                                                  -\-Continual/ExperienceSize 500
+                                                  -\-Continual/ReplayMemorySize 500
+                                                  -\-Continual/ReplayMemory 1
+                                                  -\-Continual/BatchSize 64
+                                                  -\-Continual/ReplayMemoryBatchSize 128
+                                                  -\-Continual/WeightingMethod 2
+                                                  -\-Continual/LossFunction 1"  />
                                             
 
   </include>

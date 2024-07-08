@@ -143,8 +143,8 @@
         <param if="$(arg cameras)" name="subscribe_rgbd" type="bool" value="true"/>
         <param if="$(arg cameras)" name="rgbd_cameras" type="int" value="1"/>
         <param if="$(arg cameras)" name="gen_depth" type="bool" value="true"/>
-        <param if="$(arg cameras)" name="gen_depth_decimation" type="int" value="2"/>
-        <param if="$(arg cameras)" name="gen_depth_fill_holes_size" type="int" value="40"/>
+        <param if="$(arg cameras)" name="gen_depth_decimation" type="int" value="8"/>
+        <param if="$(arg cameras)" name="gen_depth_fill_holes_size" type="int" value="10"/>
         <param if="$(arg cameras)" name="gen_depth_fill_holes_error" type="double" value="100"/>
         <param if="$(arg cameras)" name="gen_depth_fill_iterations" type="int" value="2"/>
 
@@ -157,8 +157,8 @@
         <param name="Rtabmap/DetectionRate"          type="string" value="1"/>
         <param name="Rtabmap/LoopGPS"                type="string" value="false"/> <!-- GPS can be quite wrong in that dataset-->
         <param name="Rtabmap/CreateIntermediateNodes" type="string" value="true"/> 
-        <param name="Rtabmap/StartNewMapOnLoopClosure" type="string" value="true"/> 
-        <param name="Mem/IntermediateNodeDataKept"   type="string" value="true"/>
+        <param name="Rtabmap/StartNewMapOnLoopClosure" type="string" value="false"/> 
+        <param name="Mem/IntermediateNodeDataKept"   type="string" value="false"/>
         <param name="RGBD/NeighborLinkRefining"      type="string" value="false"/>
         <param name="RGBD/ProximityBySpace"          type="string" value="true"/>
         <param name="RGBD/ProximityMaxGraphDepth"    type="string" value="0"/>
@@ -168,8 +168,9 @@
         <param name="RGBD/LocalRadius"               type="string" value="30"/>
         <param name="RGBD/OptimizeMaxError"          type="string" value="0"/>
         <param name="Mem/NotLinkedNodesKept"         type="string" value="false"/>
-        <!-- <param name="Rtabmap/TimeThr"                type="string" value="700"/> -->
-        <param name="Mem/InitWMWithAllNodes"         type="string" value="true"/>
+        <param name="Rtabmap/LoopThr"                type="string" value="0.05"/>
+        <param name="Rtabmap/TimeThr"                type="string" value="1000"/>
+        <param name="Mem/InitWMWithAllNodes"         type="string" value="false"/>
         <!-- <param name="Mem/IncrementalMemory"         type="string" value="true"/> -->
         <param name="Mem/STMSize"                    type="string" value="30"/>
         <param name="Mem/ImagePreDecimation"         type="string" value="2"/> <!-- Scale down image 2x -->
@@ -187,10 +188,10 @@
         <param name="Grid/GroundIsObstacle"          type="string" value="false"/>
 
         <!-- Use SURF features to make it easier to find loop closures between datasets -->
-        <param name="Kp/DetectorStrategy"            type="string" value="2"/>
+        <param name="Kp/DetectorStrategy"            type="string" value="0"/>
         <param name="Kp/MaxFeatures"                 type="string" value="400"/> <!-- For bag-of-words -->
         <param name="Vis/MaxFeatures"                type="string" value="600"/> <!-- For visual transform estimation -->
-        <param name="Vis/FeatureType"                type="string" value="2"/>
+        <param name="Vis/FeatureType"                type="string" value="0"/>
         <param name="Mem/DepthAsMask"                type="string" value="false"/> <!-- use whole images for keypoints -->
         <param name="Mem/StereoFromMotion"           type="string" value="true"/> <!-- will estimate 3D position of keypoints outside depth image based on odometry -->
 
