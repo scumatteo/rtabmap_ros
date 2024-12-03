@@ -25,7 +25,7 @@
     
     <arg name="database_path"  default="/wsl/rtabmap_usyd.db"/>
 
-    <arg name="rtabmap_args" default="--udebug --logfile /wsl/usyd_log.txt"/>
+    <arg name="rtabmap_args" default="-d --udebug --logfile /wsl/usyd_log.txt"/>
 
     <!-- Regenerate lidar point clouds with timestamps -->
     <node pkg="nodelet" type="nodelet" name="velodyne_transform" args="standalone velodyne_pointcloud/TransformNodelet" ns="velodyne/front">
@@ -119,16 +119,6 @@
         <param name="OdomF2M/ScanMaxSize"        type="string" value="$(arg local_map_size)"/>
       </node>
 
-      <!-- <node pkg="rtabmap_odom" type="rgbd_odometry" name="rgbd_odometry" output="screen">
-        <param name="subscribe_rgbd" type="string" value="true"/>
-        <param name="rgbd_cameras" type="string" value="3"/>
-
-        <param name="guess_frame_id"  type="string" value="odom"/>
-        <param name="frame_id" type="string" value="base_footprint"/>
-        <param name="queue_size" type="int" value="10"/>
-        <param name="wait_for_transform" type="bool" value="true"/>
-      </node> -->
-
       <!-- SLAM -->
        <!-- launch-prefix="xterm -e gdb -ex run -\-args" -->
       <node pkg="rtabmap_slam" type="rtabmap" name="rtabmap" output="screen" args="$(arg rtabmap_args)">
@@ -150,6 +140,8 @@
         <param if="$(arg cameras)" name="gen_depth" type="bool" value="true"/>
         <param if="$(arg cameras)" name="gen_depth_decimation" type="int" value="8"/>
         <param if="$(arg cameras)" name="gen_depth_fill_holes_size" type="int" value="10"/>
+        <!-- <param if="$(arg cameras)" name="gen_depth_decimation" type="int" value="2"/>
+        <param if="$(arg cameras)" name="gen_depth_fill_holes_size" type="int" value="40"/> -->
         <param if="$(arg cameras)" name="gen_depth_fill_holes_error" type="double" value="100"/>
         <param if="$(arg cameras)" name="gen_depth_fill_iterations" type="int" value="2"/>
 
@@ -206,7 +198,7 @@
         <param name="Icp/MaxCorrespondenceDistance"  type="string" value="3"/>
         <param name="Icp/OutlierRatio"               type="string" value="0.7"/>
 
-        <param name="Region/DesiredAverageCardinality" type="string" value="1000"/>
+        <!-- <param name="Region/DesiredAverageCardinality" type="string" value="1000"/>
         <param name="Region/MeshShapeFactor"         type="string" value="1"/>
         <param name="Region/RadiusUpperBound"        type="string" value="100"/>
 
@@ -224,7 +216,7 @@
         <param name="Continual/RoiX"                 type="string" value="1920"/>
         <param name="Continual/RoiY"                 type="string" value="0"/>
         <param name="Continual/RoiWidth"             type="string" value="1920"/>
-        <param name="Continual/RoiHeight"            type="string" value="1080"/>
+        <param name="Continual/RoiHeight"            type="string" value="1080"/> -->
         
       </node>
 
@@ -234,7 +226,6 @@
         <param name="subscribe_odom_info"  type="bool" value="true"/>
         <param name="subscribe_scan_cloud" type="bool" value="true"/>
         <param name="approx_sync"          type="bool" value="false"/>
-        <!-- <param name="gui_cfg"              type="string" value= /> -->
         <remap from="scan_cloud" to="odom_filtered_input_scan"/>
         <remap from="odom_info"  to="odom_info"/>
 

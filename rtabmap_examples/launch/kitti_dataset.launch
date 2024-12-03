@@ -26,13 +26,14 @@
   <arg name="rtabmap_args"            default="-d
                                               --udebug --logfile /wsl/log_kitti.txt 
                                               --Rtabmap/LoopThr 0.05
+                                              --Rtabmap/MemoryThr 82
                                               --Mem/InitWMWithAllNodes true
-                                              --Rtabmap/CreateIntermediateNodes true
+                                              --Rtabmap/CreateIntermediateNodes false
                                               --Rtabmap/DetectionRate 1     
                                               --Mem/NotLinkedNodesKept false
                                               --Mem/IntermediateNodeDataKept false
-                                              --RGBD/NeighborLinkRefining true
-                                              -\-Region/DesiredAverageCardinality 600
+                                              --RGBD/NeighborLinkRefining true" />
+                                              <!-- -\-Region/DesiredAverageCardinality 600
                                               -\-Region/MeshShapeFactor 1
                                               -\-Region/RadiusUpperBound 100
                                               -\-Continual/TopK 3
@@ -46,7 +47,7 @@
                                               -\-Continual/BatchSize 64
                                               -\-Continual/ReplayMemoryBatchSize 128
                                               -\-Continual/WeightingMethod 2
-                                              -\-Continual/LossFunction 1"/>   
+                                              -\-Continual/LossFunction 1"/>    -->
 
   <!-- <arg name="launch_prefix"           default="xterm -e gdb -ex run -\-args"/>                                   -->
   <arg name="launch_prefix"           default=""/>

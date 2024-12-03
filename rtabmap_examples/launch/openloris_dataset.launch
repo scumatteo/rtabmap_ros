@@ -37,13 +37,14 @@
     <arg name="args"                        value="--udebug --logfile /wsl/log_openloris.txt 
                                                   --Reg/Strategy 0
                                                   --Rtabmap/LoopThr 0.1
+                                                  --Rtabmap/MemoryThr 177
                                                   --Mem/InitWMWithAllNodes true
-                                                  --Rtabmap/CreateIntermediateNodes true
+                                                  --Rtabmap/CreateIntermediateNodes false
                                                   --Rtabmap/DetectionRate 1     
                                                   --Mem/NotLinkedNodesKept false
                                                   --Mem/IntermediateNodeDataKept false
-                                                  --RGBD/NeighborLinkRefining true
-                                                  -\-Region/DesiredAverageCardinality 100
+                                                  --RGBD/NeighborLinkRefining true" />
+                                                  <!-- -\-Region/DesiredAverageCardinality 100
                                                   -\-Region/MeshShapeFactor 1
                                                   -\-Region/RadiusUpperBound 15
                                                   -\-Continual/TopK 3
@@ -57,7 +58,7 @@
                                                   -\-Continual/BatchSize 64
                                                   -\-Continual/ReplayMemoryBatchSize 128
                                                   -\-Continual/WeightingMethod 2
-                                                  -\-Continual/LossFunction 1"  />
+                                                  -\-Continual/LossFunction 1"  /> -->
                                             
 
   </include>
