@@ -35,11 +35,14 @@
     <arg name="args"                        value="-d --udebug --logfile /wsl/log_gta.txt 
                                                   --Reg/Strategy 0
                                                   --Rtabmap/LoopThr 0.7
+                                                  --Rtabmap/WMSize 600
                                                   --Mem/InitWMWithAllNodes true
                                                   --Rtabmap/CreateIntermediateNodes false
                                                   --Rtabmap/DetectionRate 1     
                                                   --Mem/NotLinkedNodesKept false
                                                   --Mem/IntermediateNodeDataKept false
+                                                  --Mem/ImagePreDecimation 2
+                                                  --Mem/ImagePostDecimation 2
                                                   --RGBD/NeighborLinkRefining true" />
 
                                                   <!-- -\-Region/DesiredAverageCardinality 100
