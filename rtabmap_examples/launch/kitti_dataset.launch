@@ -26,28 +26,27 @@
   <arg name="rtabmap_args"            default="-d
                                               --udebug --logfile /wsl/log_kitti.txt 
                                               --Rtabmap/LoopThr 0.05
-                                              --Rtabmap/MemoryThr 82
-                                              --Mem/InitWMWithAllNodes true
-                                              --Rtabmap/CreateIntermediateNodes false
+                                              --Mem/InitWMWithAllNodes false
+                                              --Rtabmap/CreateIntermediateNodes true
                                               --Rtabmap/DetectionRate 1     
                                               --Mem/NotLinkedNodesKept false
                                               --Mem/IntermediateNodeDataKept false
-                                              --RGBD/NeighborLinkRefining true" />
-                                              <!-- -\-Region/DesiredAverageCardinality 600
-                                              -\-Region/MeshShapeFactor 1
-                                              -\-Region/RadiusUpperBound 100
-                                              -\-Continual/TopK 3
-                                              -\-Continual/ModelPath /wsl/resnet18_places365.pt
-                                              -\-Continual/CheckpointPath /wsl/checkpoint_kitti.pt
-                                              -\-Continual/Device 0
-                                              -\-Continual/Epochs 4
-                                              -\-Continual/ExperienceSize 500
-                                              -\-Continual/ReplayMemorySize 500
-                                              -\-Continual/ReplayMemory 1
-                                              -\-Continual/BatchSize 64
-                                              -\-Continual/ReplayMemoryBatchSize 128
-                                              -\-Continual/WeightingMethod 2
-                                              -\-Continual/LossFunction 1"/>    -->
+                                              --RGBD/NeighborLinkRefining true 
+                                              --Region/DesiredAverageCardinality 600
+                                              --Region/MeshShapeFactor 1
+                                              --Region/RadiusUpperBound 100
+                                              --Continual/TopK 3
+                                              --Continual/ModelPath /wsl/resnet18_places365.pt
+                                              --Continual/CheckpointPath /wsl/checkpoint_kitti.pt
+                                              --Continual/Device 0
+                                              --Continual/Epochs 4
+                                              --Continual/ExperienceSize 500
+                                              --Continual/ReplayMemorySize 500
+                                              --Continual/ReplayMemory 1
+                                              --Continual/BatchSize 64
+                                              --Continual/ReplayMemoryBatchSize 128
+                                              --Continual/WeightingMethod 2
+                                              --Continual/LossFunction 1"/>    
 
   <!-- <arg name="launch_prefix"           default="xterm -e gdb -ex run -\-args"/>                                   -->
   <arg name="launch_prefix"           default=""/>
